@@ -8,11 +8,8 @@ car_cascade = cv2.CascadeClassifier(car_cascade_src)
 
 cap = cv2.VideoCapture(rtsp_url, cv2.CAP_FFMPEG)
 
-if not cap.isOpened():
-    print("Erro ao abrir o fluxo RTSP")
-    exit()
 
-while True:
+while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         print("Erro ao receber frame")
