@@ -43,8 +43,7 @@ while True:
         cv2.imshow("Detector", frame)
         contador = 0
 
-        if cv2.waitKey(2) & 0xFF == ord('q'):
-            break
+
 
 cap.release()
 cv2.destroyAllWindows()
