@@ -36,7 +36,7 @@ while True:
         ultimas_medias.append(media_lumin_regiao)
 
         mediana = np.median(ultimas_medias)
-        print(f"Mediana: {mediana:.2f}")
+        #print(f"Mediana: {mediana:.2f}")
         agora = datetime.now()
 
         hora = agora.strftime('%H')
@@ -55,7 +55,7 @@ while True:
                     arquivo.write(str(mediana) + ', ' + hora + ', ' + minuto + '\n')
                     arquivo.close()
 
-                    print("Mediana maior que 100! Enviando requisição...")
+                    #print("Mediana maior que 100! Enviando requisição...")
                     requests.get("http://192.168.0.123/apitar", timeout=0.5)
                     armou_apito = True
                 except Exception as e:
