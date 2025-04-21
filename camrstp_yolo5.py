@@ -32,7 +32,7 @@ while True:
         if contador != 10:
             #cv2.imshow("Detector", frame)
             continue
-        frame = cv2.resize(frame, (800, 450))
+        #frame = cv2.resize(frame, (800, 450))
 
         results = model(frame)
 
@@ -44,6 +44,7 @@ while True:
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                print('ACHEI')
 
         cv2.imshow("Detector", frame)
         contador = 0
