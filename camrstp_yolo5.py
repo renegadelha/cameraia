@@ -1,5 +1,5 @@
 import cv2
-from ultralytics import YOLO
+import torch
 
 #fc = cv2.CascadeClassifier()
 #fc.load('haarcascade_frontalface_default.xml')
@@ -7,7 +7,8 @@ from ultralytics import YOLO
 #car_cascade_src = 'cars.xml'
 #car_cascade = cv2.CascadeClassifier(car_cascade_src)
 
-model = YOLO("yolov8n.pt")
+model = torch.hub.load('ultralytics/yolov5', 'custom', 'yolov5n.pt')
+model.conf = 0.5  # confiança mínima (opcional)
 
 cor = (0, 0, 255)
 
@@ -15,14 +16,12 @@ cor = (0, 0, 255)
 rtsp_url = "rtsp://nyfb:kk247n@192.168.0.104:554/live"
 
 cap = cv2.VideoCapture(rtsp_url, cv2.CAP_FFMPEG)
-cap.set(cv2.CAP_PROP_BUFFERSIZE, 10)
 
 #cap = cv2.VideoCapture(0)
 
 if not cap.isOpened():
     print("Erro ao abrir o fluxo RTSP")
     exit()
-
 
 
 contador = 0
@@ -37,14 +36,14 @@ while True:
 
         results = model(frame)
 
-        
-        for result in results:
-            for box in result.boxes:
-                cls = int(box.cls[0])
-                if cls == 0:
-                    x1, y1, x2, y2 = map(int, box.xyxy[0])
-                    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                    cv2.putText(frame, "Pessoa", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        for *box, conf, cls in results.xyxy[0]:
+            label = model.names[int(cls)]
+
+            if label == 'person':
+                x1, y1, x2, y2 = map(int, box)
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
         cv2.imshow("Detector", frame)
         contador = 0
