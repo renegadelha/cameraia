@@ -5,9 +5,6 @@ import requests
 from datetime import datetime, time, date, timedelta
 
 
-
-
-
 rtsp_url = "rtsp://nyfb:kk247n@192.168.0.104:554/live"
 cap = cv2.VideoCapture(rtsp_url, cv2.CAP_FFMPEG)
 
@@ -54,6 +51,10 @@ while True:
         if mediana > 120:
             if not armou_apito:
                 try:
+                    arquivo = open('portao_aberto.csv', 'a')
+                    arquivo.write(str(mediana) + ', ' + hora + ', ' + minuto + '\n')
+                    arquivo.close()
+
                     print("Mediana maior que 100! Enviando requisição...")
                     requests.get("http://192.168.0.123/apitar", timeout=0.5)
                     armou_apito = True
@@ -64,7 +65,7 @@ while True:
 
         #cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 0, 255), 1)
 
-        cv2.imshow("Detector", frame)
+        #cv2.imshow("Detector", frame)
         contador = 0
 
         if cv2.waitKey(2) & 0xFF == ord('q'):

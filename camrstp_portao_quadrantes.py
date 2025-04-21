@@ -41,7 +41,6 @@ while True:
 
             frame_diff = gray.copy()
 
-            # Percorre os quadrantes
             for y in range(0, altura, tam_quadrado):
                 for x in range(0, largura, tam_quadrado):
                     y2 = min(y + tam_quadrado, altura)
@@ -54,9 +53,8 @@ while True:
                     media2 = quad2.mean()
                     diferenca = abs(media1 - media2)
 
-                    # Define um limiar de diferença (ajustável)
                     if diferenca > 30:
-                        # Destaca o quadrante que mudou
+
                         cv2.rectangle(frame_diff, (x, y), (x2, y2), (0, 0, 255), 1)
                         cv2.putText(frame_diff, f"{int(diferenca)}", (x + 1, y + 8),
                                     cv2.FONT_HERSHEY_PLAIN, 0.6, (0, 0, 255), 1)
