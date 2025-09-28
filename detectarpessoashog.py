@@ -22,7 +22,7 @@ while True:
         rects, _ = hog.detectMultiScale(gray, winStride=(8, 8), padding=(8, 8), scale=1.05)
 
     if len(rects) > 0:
-        nome_arquivo = f"frame_{contador}.jpg"
+        nome_arquivo = f"capturas/frame_{contador}.jpg"
         cv2.imwrite(nome_arquivo, frame)
         contador += 1
 
