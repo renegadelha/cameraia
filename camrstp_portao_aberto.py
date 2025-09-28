@@ -36,7 +36,7 @@ while True:
         ultimas_medias.append(media_lumin_regiao)
 
         mediana = np.median(ultimas_medias)
-        #print(f"Mediana: {mediana:.2f}")
+        print(f"Mediana: {mediana:.2f}")
         agora = datetime.now()
 
         hora = agora.strftime('%H')
@@ -56,19 +56,20 @@ while True:
                     arquivo.close()
 
                     #print("Mediana maior que 100! Enviando requisição...")
-                    requests.get("http://192.168.0.123/apitar", timeout=0.5)
+                    #requests.get("http://192.168.0.123/apitar", timeout=0.5)
                     armou_apito = True
                 except Exception as e:
                     print("Erro ao enviar requisição:", e)
         else:
             armou_apito = False
 
-        #cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 0, 255), 1)
+        cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 0, 255), 1)
 
-        #cv2.imshow("Detector", frame)
+        cv2.imshow("Detector", frame)
         contador = 0
 
-
+        if cv2.waitKey(2) & 0xFF == ord('q'):
+            break
 
 cap.release()
 cv2.destroyAllWindows()

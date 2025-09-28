@@ -40,7 +40,7 @@ while True:
 
         cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 0, 255), 1)
 
-        #cv2.imshow("Detector", frame)
+        cv2.imshow("Detector", frame)
         contador = 0
 
 
