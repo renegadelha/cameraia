@@ -1,6 +1,6 @@
 import cv2
 
-body_cascade = cv2.CascadeClassifier('haarcascade_upperbody.xml')
+body_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 
 frame_count = 0
@@ -10,7 +10,7 @@ while True:
     if not ret:
         continue
 
-    frame = cv2.resize(frame, (320, 240))
+    #frame = cv2.resize(frame, (320, 240))
     frame_count += 1
 
     if frame_count % 10 == 0:
