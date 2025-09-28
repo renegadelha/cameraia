@@ -6,6 +6,7 @@ hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
 cap = cv2.VideoCapture(0)
 frame_count = 0
+contador = 0
 
 while True:
     ret, frame = cap.read()
@@ -16,16 +17,16 @@ while True:
     frame_count += 1
 
     rects = []
-    if frame_count % 10 == 0:
+    if frame_count % 15 == 0:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         rects, _ = hog.detectMultiScale(gray, winStride=(8, 8), padding=(8, 8), scale=1.05)
 
     if len(rects) > 0:
-        print('achei:', len(rects))
-    #for (x, y, w, h) in rects:
-    #    cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        nome_arquivo = f"frame_{contador}.jpg"
+        cv2.imwrite(nome_arquivo, frame)
+        contador += 1
 
-    #cv2.imshow("Detecção HOG + SVM", frame)
+        print('achei:', len(rects))
 
 cap.release()
 
